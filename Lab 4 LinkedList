@@ -224,3 +224,61 @@ return result;
 }
 
 }
+
+------------------------------------------------------------------------------
+package linkedlist;
+
+public class Person {
+public int id;
+public String name;
+public Person(int id, String name)
+{
+this.id = id;
+this.name = name;
+}
+public int getId() {
+return id;
+}
+public void setId(int id) {
+this.id = id;
+}
+public String getName() {
+return name;
+}
+public void setName(String name) {
+this.name = name;
+}
+public String toString()
+{
+return "id = "+id+" Name = "+name;
+}
+}
+
+public Person search(int id)
+{
+comparisons = 0;
+int loc = hash(id);
+LinkedList<Person> thisList = 
+(LinkedList<Person>) peopleHashList[loc];
+((LinkedList<Person>) thisList).resetCurrentElement();
+while (thisList.hasMoreElements())
+{
+Person p = thisList.nextElement();
+if (p.getId() == id)
+{
+comparisons++;
+return p;
+}
+}
+return null;
+}
+
+public int getComparisons()
+{
+return comparisons;
+}
+public void resetComparisons()
+{
+comparisons = 0;
+}
+}
