@@ -219,20 +219,32 @@ public String getHouses(Criteria c) {
 
 
 
-
-
 package IPP;
 
 public class HouseListTester {
-public HouseList availableHouses;
 
 public static void main(String[] args){
-availableHouses = new HouseList(house.txt);
-mikesMinPrice = c.getMinimumPrice(1000);
-mikesMaxPrice = c.getMaximumPrice(50000);
-mikesMinArea = c.getMinimumArea(100);
-mikesMaxArea = c.getMaximumArea(5000);
-mikesMinBed = c.getMinimumNumberOfBedrooms(0);
-mikesMaxBed = c.getMaximumNumberOfBedrooms(10);
+ HouseList availableHouses = new HouseList("houses.txt");
+
+ Criteria c1 = new Criteria(1000, 500000, 100, 5000, 0, 10);
+ Criteria c2 = new Criteria(1000, 100000, 500, 1200, 0, 3);
+ Criteria c3 = new Criteria(100000, 200000, 1000, 2000, 2, 3);
+ Criteria c4 = new Criteria(200000, 300000, 1500, 4000, 3, 6);
+ Criteria c5 = new Criteria(100000, 500000, 2500, 5000, 3, 6);
+
+ availableHouses.printHouses(c1);
+ System.out.println("\n");
+
+ availableHouses.printHouses(c2);
+ System.out.println("\n");
+
+ availableHouses.printHouses(c3);
+ System.out.println("\n");
+
+ availableHouses.printHouses(c4);
+ System.out.println("\n");
+
+ availableHouses.printHouses(c5);
+ System.out.println("\n");
 }
 }
