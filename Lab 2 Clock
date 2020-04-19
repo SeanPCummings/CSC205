@@ -1,5 +1,17 @@
 package clocks;
 
+public interface IClock {
+public int getHour();
+public int getMinute();
+public int getSecond();
+}
+
+
+
+
+
+package clocks;
+
 import java.util.*; //To use the GregorianCalendar class
 import java.text.*;
 public class Clock implements IClock
