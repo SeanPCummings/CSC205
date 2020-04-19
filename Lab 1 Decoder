@@ -1,0 +1,135 @@
+package Lab01;
+
+public class EncodeDecode {
+//instance variables
+private String[] originalList, encodedList, decodedList;
+//Constants for encode/decode
+private final String  ALPHABET = "abcdefghijklmnopqrstuvwxyzab";
+private final String  CODED_ALPHABET = "cdefghijklmnopqrstuvwxyzabcd";
+private final String NUMBERS = "012345678901";
+private final String CODED_NUMBERS = "234567890123";
+/*
+* Constructor creates encodedList and decodedList
+*/
+public EncodeDecode(String[] oL)
+{
+//set oL to the instance variable
+originalList = oL;
+//gets length of the list for use in for loops and arrays
+int listLength = originalList.length;
+//sets length of array and for loop to call on encode method
+encodedList = new String[listLength];
+for(int i=0; i < listLength; i++)
+{
+//calls on encode method to get a encoded string and sets it to array location
+String encodedWord = encode(originalList[i]);
+encodedList[i] = encodedWord; 
+}
+//sets length of array and for loop to call on decode method 
+decodedList = new String[listLength];
+for(int p=0; p < listLength; p++)
+{
+//calls on decode method to get a decoded string and sets it to array location
+String decodedWord = decode(encodedList[p]);
+decodedList[p] = decodedWord; 
+}
+}
+/*
+* Encode Method reads in a String and feeds each character into the forward map class
+*/
+public String encode(String originalWord)
+{
+//creates empty string and creates lcOgWord and sets to lowercase
+String encodedWord = "";
+String lcOgWord = originalWord.toLowerCase();
+//loops through each character in the string and feeds into forwardmap
+for(int x=0; x < originalWord.length(); x++)
+{ 
+//hands off each character to forwardmap and concat it to the end
+encodedWord = encodedWord + forwardMap(lcOgWord.charAt(x));
+//if the original word was upper case make the encoded one upper as well
+if(Character.isUpperCase(originalWord.charAt(0)))
+encodedWord = Character.toUpperCase(encodedWord.charAt(0)) + encodedWord.substring(1);
+} 
+return encodedWord; 
+}
+/*
+* Decode Method reads in a String and feeds each character into the backward map class
+*/
+public String decode(String codedWord)
+{
+//creates empty string and creates lcEncWord and sets to lowercase
+String decodedWord = "";
+String lcEncWord = codedWord.toLowerCase();
+//loops through each character in the string and feeds into backmap 
+for(int x=0; x < codedWord.length(); x++)
+{
+//hands off each character to backmap and concat it to the end
+decodedWord = decodedWord + backMap(lcEncWord.charAt(x));
+//if the original word was upper case make the encoded one upper as well
+if(Character.isUpperCase(codedWord.charAt(0)))
+decodedWord = Character.toUpperCase(decodedWord.charAt(0)) + decodedWord.substring(1);
+} 
+return decodedWord;
+}
+/*
+* forward map reads in a character and sets it to the encoded character based off
+* of its location in CODED_ALPHABET from ALPHABET or CODED_NUMBERS from NUMBERS
+*/
+public char forwardMap(char ch)
+{
+char mappedCh;
+int location = ALPHABET.indexOf(ch);
+//if there is an out of bounds return the character read in
+if(location != -1)
+{
+mappedCh = CODED_ALPHABET.charAt(location);
+}
+else
+{
+location = NUMBERS.indexOf(ch);
+if(location != -1)
+{
+mappedCh = CODED_NUMBERS.charAt(location);
+}
+else
+{
+mappedCh = ch;
+}
+}
+return mappedCh;
+}
+/*
+* back map reads in a character and sets it to the encoded character based off
+* of its location in ALPHABET from CODED_ALPHABET or in NUMBERS from CODED_NUMBERS
+*/
+public char backMap(char ch)
+{
+char mappedCh;
+int location = CODED_ALPHABET.indexOf(ch);
+//if there is an out of bounds return the character read in
+if(location != -1)
+{
+mappedCh = ALPHABET.charAt(location);
+}
+else
+{
+location = CODED_NUMBERS.indexOf(ch);
+if(location != -1)
+{
+mappedCh = NUMBERS.charAt(location);
+}
+else
+{
+mappedCh = ch;
+}
+}
+return mappedCh;
+}
+/*
+* Getter methods 
+*/
+public String[] getEncodedList(){ return encodedList; }
+public String[] getDecodedList(){ return decodedList; }
+
+}
