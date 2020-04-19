@@ -1,0 +1,226 @@
+package linkedlist;
+import java.util.LinkedList;
+public class MyHashTable {
+private Object[] peopleHashList; 
+private int comparisons = 0;
+public MyHashTable()
+{
+peopleHashList = new Object[100];
+for (int k = 0; k < peopleHashList.length; k++)
+{
+peopleHashList[k] = new LinkedList<Person>();
+}
+// insert method is defined later
+insert(new Person(324161, "Todd Ness"));
+insert(new Person(951304, "Jere Hillwig")); 
+insert(new Person(109296, "Janna Bebout"));
+insert(new Person(666358, "Elfreda Maring")); 
+insert(new Person(407078, "Rebekah Enders")); 
+insert(new Person(529624, "Alphonso Oniel")); 
+insert(new Person(983732, "Violet Poulin")); 
+insert(new Person(482797, "Maegan Oaks "));
+insert(new Person(830834, "Eugene Kerbs")); 
+insert(new Person(710475, "Rolf Foley")); 
+insert(new Person(243205, "Jeanine Orlandi")); 
+insert(new Person(615689, "Hattie Cuenca")); 
+insert(new Person(585419, "Raymon Cleaver")); 
+insert(new Person(528084, "Barbra Hobart")); 
+insert(new Person(928750, "Cyndy Rodiguez")); 
+insert(new Person(246295, "Jacquetta Samet")); 
+insert(new Person(667354, "Les Parrinello")); 
+insert(new Person(823781, "Gaye Glasser")); 
+insert(new Person(276426, "Delinda Bond")); 
+insert(new Person(807804, "Alfredo Shattuck")); 
+insert(new Person(572645, "Rasheeda Primavera "));
+insert(new Person(677630, "Amada Figg"));
+insert(new Person(210646, "Addie Spoor"));
+insert(new Person(384022, "Lidia Haakenson"));
+insert(new Person(996359, "Tawana Lamoreaux"));
+insert(new Person(442278, "Evangelina Wykoff"));
+insert(new Person(732352, "Perla Haldeman"));
+insert(new Person(890343, "Marquerite Cater"));
+insert(new Person(310841, "Kristeen Stang"));
+insert(new Person(897595, "Ignacia Fall"));
+insert(new Person(231616, "Laure Polizzi"));
+insert(new Person(845143, "Dirk Copple"));
+insert(new Person(505001, "Manie Heard"));
+insert(new Person(131618, "Rebecka Migues"));
+insert(new Person(380217, "Lizzie Ronning"));
+insert(new Person(767255, "Fawn Castruita"));
+insert(new Person(658666, "Yelena Amann"));
+insert(new Person(371449, "Peg Glassman"));
+insert(new Person(666959, "Lorita Maselli"));
+insert(new Person(494012, "Lowell Coblentz"));
+insert(new Person(698849, "Toni Winrow"));
+insert(new Person(137189, "Bobbie Desrosier"));
+insert(new Person(826992, "Alexia Jock "));
+insert(new Person(4338, "Natalya Hartsfield"));
+insert(new Person(138905, "Teodoro Kettle"));
+insert(new Person(772660, "Jayson Byam"));
+insert(new Person(386107, "Johnathan Schweigert"));
+insert(new Person(652699, "Nancey Earwood"));
+insert(new Person(736874, "Alysa Mcmanus"));
+insert(new Person(618549, "Thad Burr"));
+
+}
+public int hash(int key)
+{
+return key%100;
+}
+//Complete the insert and delete methods.
+//Algorithm is explained in comments
+public void insert(Person p) 
+{
+// get the id of p, use the hash function to compute 
+// the location, find the doubly-linked-list at 
+// this location. (May need to do casting) (See example
+// in search method below)
+// insertAtEnd p into that doubly-linked list 
+int loc = p.getId();
+loc = hash(loc);
+LinkedList<Person> thisList = 
+(LinkedList<Person>) peopleHashList[loc];
+peopleHashList[loc].insertAtEnd(p);
+} 
+public void delete(int id)
+{
+// find the loc by applying the hash function to id
+// find the doubly-linked-list at this location. 
+// (May need to do casting) (See example
+// in search method below)
+// Search thru this DLL to find the position of a node
+// whose id equals given id. If one is found, delete it
+// using the deleteNth method of the DLL
+int loc = hash(id);
+LinkedList<Person> thisList = 
+(LinkedList<Person>) peopleHashList[loc];
+while (thisList.hasMoreElements())
+{
+if (thisList.getInfo() == id)
+{
+thisList.deleteNth(loc)
+}
+}
+return null;
+}
+public Person search(int id)
+{
+comparisons = 0;
+int loc = hash(id);
+DoublyLinkedList<Person> thisList = 
+(DoublyLinkedList<Person>) peopleHashList[loc];
+thisList.resetCurrentElement();
+while (thisList.hasMoreElements())
+{
+Person p = thisList.nextElement();
+if (p.getId() == id)
+{
+comparisons++;
+return p;
+}
+}
+return null;
+}
+
+public int getComparisons()
+{
+return comparisons;
+}
+public void resetComparisons()
+{
+comparisons = 0;
+}
+}
+
+------------------------------------------------------------
+package linkedList;
+
+    public class LinkedSet<T>
+    private SLList<T> body;
+    public LinkedSet()
+    {
+    body = new SLList<T>();
+    }
+    public boolean member(T elm)
+    {
+      return body.member(elm);
+    }
+    public void insert(T str)
+    {
+// if str is not a member of this, insert str into this
+    for ( int i = 0; i < body.size(); i++) {
+    if(body.member(str) != true)
+    body.insertAt(str, 0);
+    }
+   
+    }
+    public void printSet()
+    {
+      System.out.println (body.toString());
+    }
+// builds a set by inserting all elements of an array
+public void buildSet(T[] elements)
+{
+for (int j = 0; j < elements.length; j++) {
+T temp = elements[j]; 
+body.insert(temp);
+}
+}
+// Returns the union of this set and the other set without
+// modifying this set or the other set
+public LinkedSet<T> union(LinkedSet<T> otherSet)
+{
+LinkedSet<T> result = new LinkedSet<T>();
+SLList<T> resultBody = result.body;
+SLList<T> otherBody = otherSet.body;
+for (int k = 0; k < body.size(); k++) {
+result.insert(body.elementAt(k));
+}
+for(int q = 0; q < otherBody.size(); q++) {
+for (int g = 0; g < resultBody.size(); g++) {
+if (!otherBody.elementAt(q).equals(resultBody.elementAt(g)))
+result.insert(otherBody.elementAt(q));
+}
+}
+
+return result;
+}
+//--------------------------------------------------------------
+// Returns the intersection of this set and the other set 
+// without modifying this set or the other set
+public LinkedSet<T> intersection(LinkedSet<T> otherSet)
+{
+LinkedSet<T> result = new LinkedSet<T>();
+SLList<T> resultBody = result.body;
+SLList<T> otherBody = otherSet.body;
+
+// For each element of this set, if it is also a 
+// member of otherSet, then insert it into result
+for (int n = 0; n < body.size(); n++)
+if (body.nextElement().equals(otherBody.nextElement()))
+result.insert(otherSet.elementAt(n));
+return result;
+}
+//--------------------------------------------------------------
+// Returns the difference of this set and the other set 
+// i.e. thisSet – otherSet  (All the elements that are in
+// in this set, but not in the other set
+// without modifying this set or the other set
+public LinkedSet<T> difference(LinkedSet<T> otherSet)
+{
+LinkedSet<T> result = new LinkedSet<T>();
+SLList<T> resultBody = result.body;
+SLList<T> otherBody = otherSet.body;
+
+// For each element of this set, if it NOT a 
+// member of otherSet, then insert it into result
+for (int k = 0; k < body.size(); k++) {
+result.insert(body.elementAt(k));
+}
+for(int w = 0; w < otherBody.size(); w++) {
+for (int s = 0; s < resultBody.size(); s++) {
+if (!otherBody.elementAt(w).equals(resultBody.elementAt(s)))
+return result;
+}
+
+}
