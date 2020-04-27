@@ -67,14 +67,11 @@ public int hash(int key)
 {
 return key%100;
 }
-//Complete the insert and delete methods.
-//Algorithm is explained in comments
 public void insert(Person p) 
 {
 // get the id of p, use the hash function to compute 
 // the location, find the doubly-linked-list at 
-// this location. (May need to do casting) (See example
-// in search method below)
+// this location.
 // insertAtEnd p into that doubly-linked list 
 int loc = p.getId();
 loc = hash(loc);
